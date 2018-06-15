@@ -32,24 +32,26 @@ Pulls class from virtual_bot.py, runs a while True loop to determine new orders,
 
 Behaviour:
 
-1.Accepts input from widget (not included) as (block,floor,unit), data is written to a node in Firebase that functions as a collective orders list.
-
-2. Server compares current collective orders list with the previous collective orders list stored in the previous loop.
-a. if same: idleidle
-b. if different: 
-  i. locate the differences, and individually put them into a local (serverside) queue.
+1.  Accepts input from widget (not included) as (block,floor,unit), data is written to a node in Firebase that functions as a collective orders list.  
   
-3 Orders are now assigned by two different types of workers.
-a. Workers pick orders from the queue, then determines and assigns which bot it should go to.If the bot's status == "unavailable", then the bot is excluded from the assignment process. 
-b. Another worker picks up the orders and associated bot, then sends them in with the correct order number (prevents overwriting one order with another using the same order number)
-
-4. Bot nodes in firebase (i.e. 2901 for bot 2901) have two direct child nodes; status and orders. On receiving an order:
-  a. order is placed into the bot/orders node as { "order n" : bot-readable }
-  b. if it initially had no order, bot removes {"null" : "no orders yet!"}
+2.  Server compares current collective orders list with the previous collective orders list stored in the previous loop.
+  a. if same: idleidle
+  b. if different: locate the differences, and individually put them into a local (serverside) queue.
   
-5. On completion of an order:
-  a. Removes that order from the list
-  b. Orders are pushed forward; previous order 2 , stored as {"order 2" : bot-readable} is now stored as {"order 1" : bot-readable}.
-  c. If no orders left in list, orders are reset to {"null" : "no orders yet!"}
+3.  Orders are now assigned by two different types of workers:  
+
+    a.  Workers pick orders from the queue, then determines and assigns which bot it should go to.If the bot's status == "unavailable", then the bot is excluded from the assignment process.  
+    b.  Another worker picks up the orders and associated bot, then sends them in with the correct order number (prevents overwriting one order with another using the same order number).  
+
+4.  Bot nodes in firebase (i.e. 2901 for bot 2901) have two direct child nodes; status and orders. On receiving an order:  
+
+    a.  order is placed into the bot/orders node as { "order n" : bot-readable }.  
+    b.  if it initially had no order, bot removes {"null" : "no orders yet!"}.  
+  
+5.  On completion of an order:
+
+    a.  Removes that order from the list.  
+    b.  Orders are pushed forward; previous order 2 , stored as {"order 2" : bot-readable} is now stored as {"order 1" : bot-readable}.  
+    c.  If no orders left in list, orders are reset to {"null" : "no orders yet!"}.  
 
 Keyboard interrupt kills workers, senders, and server script.
