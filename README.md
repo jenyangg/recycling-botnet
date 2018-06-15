@@ -4,7 +4,7 @@ hullo!
 
 summary of files: 
 
-file 1: virtual_bot.py
+__file 1: virtual_bot.py__
 
 Contains a single class (along with test code commented out) for a virtual bot. Class contains methods that establishes a bot's identity (name, assigned block, status, address in database,), and methods that constitute the actions that the bot can take (accept order, clear order, reset orders, change status). Test code commented out at the end.
 
@@ -26,7 +26,7 @@ Behavior:
 3. clear(): resets orders 
 
 
-file 2: compiled.py
+__file 2: compiled.py__
 
 Pulls class from virtual_bot.py, runs a while True loop to determine new orders, and uses workers (default qty: 2) that listens and processes orders. Keyboard interrupt terminates workers and server code. Workers issue orders to bots in order of which bot assigned to that block is most available (has least number of pending orders in its orders list + priority in available > returning > going, unavailable not considered).Also contains dictionaries used to translate orders from a human-readable format (#xx-yy-zz) to a format that the bot can parse using line following + color detection, henceforth referred to as bot-readable.
 
@@ -55,3 +55,7 @@ Behaviour:
     c.  If no orders left in list, orders are reset to {"null" : "no orders yet!"}.  
 
 Keyboard interrupt kills workers, senders, and server script.
+
+__file 3: simulated_user.py__
+
+A simple file containing two push requests to the collective orders queue in Firebase.
