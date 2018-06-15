@@ -10,7 +10,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 
 #Fetch the service account key JSON file contents
-cred = credentials.Certificate("C:/Users/Ng Jen Yang/Downloads/term-3-1d-b9d6b-firebase-adminsdk-3ycpt-5e7cf7c1db.json")
+cred = credentials.Certificate('''enter your key here''')
 
 #Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {    'databaseURL': 'https://term-3-1d-b9d6b.firebaseio.com/'})
