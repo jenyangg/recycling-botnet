@@ -26,7 +26,7 @@ Behavior:
 3. clear(): resets orders 
 
 
-__file 2: compiled.py__
+__file 2: serverside.py__
 
 Pulls class from virtual_bot.py, runs a while True loop to determine new orders, and uses workers (default qty: 2) that listens and processes orders. Keyboard interrupt terminates workers and server code. Workers issue orders to bots in order of which bot assigned to that block is most available (has least number of pending orders in its orders list + priority in available > returning > going, unavailable not considered).Also contains dictionaries used to translate orders from a human-readable format (#xx-yy-zz) to a format that the bot can parse using line following + color detection, henceforth referred to as bot-readable.
 
